@@ -6,6 +6,7 @@ from launch import LaunchDescription
 from launch.substitutions import LaunchConfiguration
 from launch.actions import DeclareLaunchArgument
 from launch_ros.actions import Node
+from pathlib import Path
 
 import xacro
 
@@ -29,6 +30,11 @@ def generate_launch_description():
         parameters=[params]
     )
 
+    rviz_node = Node(
+        package='rviz2',
+        executable='rviz2',
+        name='rviz2',
+    )
 
     # Launch!
     return LaunchDescription([
@@ -37,5 +43,6 @@ def generate_launch_description():
             default_value='false',
             description='Use sim time if true'),
 
-        node_robot_state_publisher
+        node_robot_state_publisher,
+        rviz_node
     ])
